@@ -5,9 +5,46 @@
 <!-- 맵퍼파일 생성 후 반드시 sql-map-config.xml 파일에 mapper 등록해줘야 함 -->
 <mapper namespace="sampleMapper">
 	<resultMap type="com.spring.biz.vo.SampleVO" id="sample">
-		<result column="SAMPLE" 	property="sample"/>
+		<result column="MEMBER_NUMBER" 		property="memberNumber"/>
+		<result column="MEMBER_ID" 			property="memberId"/>
+		<result column="MEMBER_PASSWORD" 	property="memberPassword"/>
+		<result column="MEMBER_NAME" 		property="memberName"/>
+		<result column="MEMBER_BIRTH" 		property="memberBirth"/>
+		<result column="MEMBER_GENDER" 		property="memberGender"/>
+		<result column="MEMBER_ADDR_NUM" 	property="memberAddrNum"/>
+		<result column="MEMBER_ADDR" 		property="memberAddr"/>
+		<result column="MEMBER_ADDR_ETC" 	property="memberAddrEtc"/>
+		<result column="MEMBER_EMAIL" 		property="memberEmail"/>
+		<result column="MEMBER_STATE" 		property="memberState"/>
+		<result column="MEMBER_GRADE" 		property="memberGrade"/>
 	</resultMap>
 	
+	
+	<insert id="joinMember">
+		INSERT INTO PMEMBER (
+			MEMBER_NUMBER
+			, MEMBER_ID
+			, MEMBER_PASSWORD
+			, MEMBER_NAME
+			, MEMBER_BIRTH
+			, MEMBER_GENDER
+			, MEMBER_ADDR_NUM
+			, MEMBER_ADDR
+			, MEMBER_ADDR_ETC
+			, MEMBER_EMAIL
+		) VALUES (
+			(SELECT NVL(MAX(MEMBER_NUMBER) + 1, 1) FROM PMEMBER)
+			, #{memberId}
+			, #{memberPassword}
+			, #{memberName}
+			, #{memberBirth}
+			, #{memberGender}
+			, #{memberAddrNum}
+			, #{memberAddr}
+			, #{memberAddrEtc}
+			, #{memberEmail}
+		)
+	</insert>
 	
 </mapper>
 
